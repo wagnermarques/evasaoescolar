@@ -96,6 +96,7 @@ os fatores da evasão.
 Visão de alto nível da distribuição de funções entre módulos (preencher na
 iteração 2). Módulos candidatos: cadastro/importação, motor de risco,
 alertas, intervenções, relatórios, exportação para pesquisa, autenticação.
+A camada de apresentação usa o App Shell =fzl-fund-appshell--lit= (ver RNF-08).
 
 * Especificação dos requisitos de sistema
 Versão detalhada dos requisitos de usuário. Use a forma padronizada
@@ -265,6 +266,57 @@ O uso de dados para pesquisa deve seguir protocolo aprovado em Comitê de
 :END:
 O sistema deve ser desenvolvido com software livre e implantável na
 infraestrutura disponível (a definir com a equipe de TI).
+
+*** RNF-08 Uso do App Shell fzl-fund-appshell--lit (organizacional/desenvolvimento)
+:PROPERTIES:
+:ID:         RNF-08
+:TIPO:       nao-funcional/organizacional
+:PRIORIDADE: deve
+:STATUS:     aprovado
+:FONTE:      Decisão da equipe (Wagner Marques), 2026-10-06
+:REFERENCIA: https://github.com/wagnermarques/fzl-fund-appshell--lit
+:END:
+- *Descrição:* A interface do sistema deve ser construída sobre o App Shell
+  [[https://github.com/wagnermarques/fzl-fund-appshell--lit][fzl-fund-appshell--lit]], herdando sua stack e seu padrão de camadas:
+  - componentes de UI como Web Components em Lit, com Material Web (Material 3);
+  - build com Vite e distribuição como PWA instalável (vite-plugin-pwa/Workbox);
+  - roteamento por /hash router/ (compatível com hospedagem estática);
+  - estado local /offline-first/ via /storage-service/;
+  - backend opcional (Supabase: Postgres + Auth + RLS) para sincronização;
+  - configuração declarativa via =appshell.config.js= (=defineAppShellConfig=).
+  As funcionalidades do sistema devem ser implementadas como componentes e
+  rotas carregados dentro desse shell.
+- *Justificativa:* reaproveitar uma base técnica já definida e testada pelo
+  grupo, padronizar os projetos e herdar PWA, offline e acessibilidade.
+- *Critério de aceitação:* todas as telas são rotas/componentes do App Shell,
+  sem uma estrutura de aplicação paralela; a versão do App Shell utilizada
+  está declarada em =package.json=.
+
+*** RNF-09 Acessibilidade (produto/usabilidade)                  :HIPOTESE:
+:PROPERTIES:
+:ID:         RNF-09
+:TIPO:       nao-funcional/produto
+:PRIORIDADE: deveria
+:STATUS:     proposto
+:ORIGEM:     RNF-08
+:END:
+O sistema deveria manter os recursos de acessibilidade do App Shell: fontes
+Atkinson Hyperlegible e OpenDyslexic, temas claro, escuro e de alto
+contraste, e ampliação de texto de 1x a 2x.
+
+*** Pontos a negociar decorrentes do RNF-08
+O App Shell foi pensado para apps que funcionam sem conta e sem backend.
+Este sistema trata dados pessoais de menores, por isso estes pontos precisam
+ser resolvidos junto com RNF-04 e RNF-05:
+- *Dados locais:* dados de alunos guardados em =localStorage= ficam em
+  dispositivos possivelmente compartilhados na escola. Definir o que pode ser
+  armazenado localmente, e se o armazenamento deve ser cifrado ou limpo ao sair.
+- *Backend obrigatório:* aqui o backend (Supabase com RLS) e a autenticação
+  provavelmente serão obrigatórios, e não opcionais como no App Shell.
+- *Hospedagem:* GitHub Pages serve o front-end; definir onde os dados ficam
+  hospedados para atender à LGPD.
+- *Analytics:* o App Shell tem suporte a GA4. Avaliar se o uso é permitido com
+  usuários menores de idade, ou desativá-lo.
 
 ** Requisitos de domínio
 *** RD-01 Frequência mínima legal                                :HIPOTESE:
