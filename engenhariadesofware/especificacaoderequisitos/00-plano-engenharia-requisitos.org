@@ -1,0 +1,58 @@
+#+TITLE: Plano de Engenharia de Requisitos
+#+LANGUAGE: pt_BR
+#+STARTUP: overview
+#+TODO: TODO EM-ANDAMENTO REVISAR | FEITO
+
+* Objetivo
+Definir /como/ os requisitos do sistema serão descobertos, documentados,
+validados e mantidos, seguindo o processo de ER de Sommerville.
+
+* Processo em espiral (Sommerville, fig. 4.12)
+Cada volta da espiral passa pelas três atividades e produz uma versão mais
+detalhada do documento de requisitos:
+
+#+begin_example
+   Volta 1: estudo de viabilidade  -> requisitos de negócio / de usuário
+   Volta 2: elicitação detalhada   -> requisitos de sistema (funcionais e não funcionais)
+   Volta 3: prototipação/validação -> requisitos de sistema revisados e baselined
+#+end_example
+
+* Iterações planejadas
+** TODO Iteração 0 — Estudo de viabilidade
+- O sistema contribui para os objetivos da escola/rede de ensino?
+- Pode ser construído com a tecnologia e o orçamento disponíveis?
+- Pode ser integrado a sistemas já usados (diário de classe, secretaria)?
+- *Saída:* seção "Introdução" do [[file:02-documento-de-requisitos.org][documento de requisitos]] e decisão de seguir.
+
+** TODO Iteração 1 — Descoberta e requisitos de usuário
+- Identificar stakeholders ([[file:01-elicitacao-e-analise.org::*Stakeholders][lista]]).
+- Entrevistas (fechadas e abertas) e observação (etnografia) na escola.
+- Escrever cenários e histórias de usuário.
+- *Saída:* requisitos de usuário em linguagem natural.
+
+** TODO Iteração 2 — Requisitos de sistema
+- Classificar e organizar requisitos; negociar prioridades e conflitos.
+- Detalhar requisitos funcionais e não funcionais (produto, organizacionais, externos).
+- Produzir modelos (casos de uso, contexto, dados).
+- *Saída:* especificação de requisitos de sistema.
+
+** TODO Iteração 3 — Validação e baseline
+- Revisão formal com stakeholders ([[file:03-validacao.org][checklist]]).
+- Protótipo de telas principais.
+- Derivar casos de teste de aceitação.
+- *Saída:* versão 1.0 do documento (baseline) sob controle de mudanças.
+
+* Papéis
+| Papel                     | Responsável | Responsabilidade                          |
+|---------------------------+-------------+-------------------------------------------|
+| Engenheiro de requisitos  |             | Conduzir elicitação, escrever especificação |
+| Representante da escola   |             | Fornecer e validar requisitos              |
+| Orientador / pesquisador  |             | Validar requisitos de pesquisa e de dados  |
+| Desenvolvedor(es)         |             | Avaliar viabilidade técnica                |
+
+* Definição de "pronto" para um requisito
+Um requisito está pronto para implementação quando:
+- [ ] tem ID único e fonte (stakeholder ou documento) registrada;
+- [ ] foi revisado segundo os critérios de validação;
+- [ ] é verificável (existe um critério de aceitação/teste);
+- [ ] perdeu a tag =:HIPOTESE:= e está com =STATUS= =aprovado=.

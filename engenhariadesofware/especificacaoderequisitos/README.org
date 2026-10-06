@@ -1,0 +1,35 @@
+#+TITLE: Especificação de Requisitos — Sistema de Acompanhamento da Evasão Escolar
+#+AUTHOR: GEPIS
+#+LANGUAGE: pt_BR
+#+STARTUP: overview
+#+TODO: TODO EM-ANDAMENTO REVISAR | FEITO
+
+* Sobre esta pasta
+Esta pasta reúne os artefatos de Engenharia de Requisitos (ER) do projeto,
+organizados segundo o processo descrito por Ian Sommerville em
+/Engenharia de Software/ (cap. 4 — Engenharia de Requisitos).
+
+Sommerville descreve a ER como um processo iterativo (modelo em espiral)
+com três atividades principais, sustentadas pelo gerenciamento de requisitos:
+
+1. *Elicitação e análise* — descobrir os requisitos junto aos /stakeholders/.
+2. *Especificação* — registrar requisitos de usuário e de sistema.
+3. *Validação* — verificar se os requisitos definem o sistema que o cliente quer.
+4. *Gerenciamento* — controlar mudanças e rastreabilidade ao longo do tempo.
+
+* Mapa dos arquivos
+| Arquivo                                  | Atividade (Sommerville)          | Conteúdo                                              |
+|------------------------------------------+----------------------------------+-------------------------------------------------------|
+| [[file:00-plano-engenharia-requisitos.org]]  | Visão geral do processo          | Plano, iterações, papéis, critérios de pronto         |
+| [[file:01-elicitacao-e-analise.org]]         | Elicitação e análise             | Stakeholders, roteiros de entrevista, cenários        |
+| [[file:02-documento-de-requisitos.org]]      | Especificação                    | Documento de requisitos (estrutura do livro, fig 4.17) |
+| [[file:03-validacao.org]]                    | Validação                        | Checklist de revisão, protótipos, casos de teste      |
+| [[file:04-gerenciamento.org]]                | Gerenciamento de requisitos      | Identificação, rastreabilidade, controle de mudanças  |
+
+* Como trabalhar com estes arquivos
+- Cada requisito é um /heading/ Org com um bloco =:PROPERTIES:= (ID, tipo,
+  prioridade, fonte, status). Isso permite filtrar com =org-sparse-tree= ou
+  =org-agenda= e exportar tabelas com =org-columns=.
+- Requisitos ainda não confirmados por um stakeholder levam a tag
+  =:HIPOTESE:=. Eles *não* devem ser implementados antes da validação.
+- Exportação: =C-c C-e h o= (HTML) ou =C-c C-e l p= (PDF via LaTeX).

@@ -1,0 +1,51 @@
+#+TITLE: Gerenciamento de Requisitos
+#+LANGUAGE: pt_BR
+#+STARTUP: overview
+#+TODO: SOLICITADA EM-ANALISE | APROVADA REJEITADA IMPLEMENTADA
+
+* Requisitos permanentes e voláteis (Sommerville, seção 4.7)
+- *Permanentes:* derivam da atividade central da organização
+  (ex.: acompanhar a frequência dos alunos).
+- *Voláteis:* tendem a mudar (ex.: critérios de risco, normas da Secretaria,
+  formato do sistema acadêmico). Marque-os com a tag =:VOLATIL:= no
+  documento de requisitos.
+
+* Planejamento do gerenciamento
+** Identificação
+Cada requisito tem ID único e imutável (=RU-=, =RF-=, =RNF-=, =RD-=). IDs de
+requisitos removidos não são reutilizados.
+
+** Política de rastreabilidade
+- Fonte → requisito: propriedade =:FONTE:= (stakeholder, cenário, lei).
+- Requisito de usuário → requisito de sistema: propriedade =:ORIGEM:=.
+- Requisito → teste: casos =CT-NN= em [[file:03-validacao.org]].
+- Requisito → código: referenciar o ID em commits/issues (ex.: =RF-03: ...=).
+
+** Matriz de rastreabilidade
+| Req. usuário | Req. sistema             | Testes       | Issue/commit |
+|--------------+--------------------------+--------------+--------------|
+| RU-01        | RF-01 RF-02 RF-03 RF-04  | CT-01 CT-02  |              |
+| RU-02        | RF-05                    |              |              |
+| RU-03        | RF-06                    |              |              |
+| RU-04        | RF-07 RNF-05 RNF-06      |              |              |
+
+** Ferramentas
+- Este repositório Git (histórico de versões dos =.org=).
+- Issues do GitHub para solicitações de mudança, com rótulo =requisito=.
+
+* Gerenciamento de mudanças (Sommerville, fig. 4.19)
+Fluxo: *análise do problema e especificação da mudança* → *análise de
+mudança e custos* → *implementação da mudança*.
+
+** Solicitações de mudança
+*** SOLICITADA SM-001 <título>
+:PROPERTIES:
+:SOLICITANTE:
+:DATA:
+:REQUISITOS_AFETADOS:
+:CUSTO_ESTIMADO:
+:END:
+- *Problema/motivação:*
+- *Mudança proposta:*
+- *Análise de impacto:* (usar a matriz de rastreabilidade)
+- *Decisão:*

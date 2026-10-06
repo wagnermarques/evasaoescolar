@@ -1,0 +1,317 @@
+#+TITLE: Documento de Requisitos de Software — Sistema de Acompanhamento da Evasão Escolar
+#+LANGUAGE: pt_BR
+#+STARTUP: overview
+#+OPTIONS: toc:2 num:t
+#+COLUMNS: %40ITEM %ID %TIPO %PRIORIDADE %STATUS %FONTE
+
+# Estrutura baseada em Sommerville, fig. 4.17 (derivada da IEEE 830).
+# Convenções:
+#  - Requisitos de usuário: RU-NN  | Requisitos funcionais de sistema: RF-NN
+#  - Requisitos não funcionais: RNF-NN | Requisitos de domínio: RD-NN
+#  - PRIORIDADE (MoSCoW): deve | deveria | poderia | nao-agora
+#  - STATUS: proposto | em-analise | aprovado | rejeitado | implementado
+#  - :HIPOTESE: = ainda não confirmado por stakeholder
+
+* Prefácio
+** Público-alvo
+Equipe de desenvolvimento, coordenação pedagógica, pesquisadores do GEPIS
+e gestores educacionais.
+** Histórico de versões
+| Versão | Data       | Autor | Mudanças                                  |
+|--------+------------+-------+-------------------------------------------|
+|    0.1 | 2026-10-06 |       | Estrutura inicial e requisitos-hipótese   |
+
+* Introdução
+** Necessidade do sistema
+A evasão escolar raramente é um evento súbito: costuma ser precedida por
+sinais (faltas, queda de desempenho, problemas sociais). Esses sinais ficam
+dispersos entre professores, secretaria e orientação, o que atrasa a
+intervenção. O sistema deve reunir esses sinais, apontar alunos em risco e
+apoiar o acompanhamento das ações tomadas.
+** Escopo
+- *Dentro do escopo:* registro/importação de dados escolares, indicador de
+  risco, alertas, registro de intervenções, relatórios, exportação para pesquisa.
+- *Fora do escopo (a confirmar):* substituir o sistema acadêmico oficial,
+  emissão de documentos oficiais.
+** Relação com objetivos da organização
+(preencher após o estudo de viabilidade)
+
+* Glossário
+- Evasão :: abandono da escola pelo aluno sem conclusão do curso/série
+  (definição operacional a ser fixada com stakeholders).
+- Abandono :: (diferenciar de evasão conforme definição do INEP).
+- Aluno em risco :: aluno cujo indicador de risco ultrapassa o limiar configurado.
+- Intervenção :: ação registrada para evitar a evasão (contato, reunião, encaminhamento).
+- Stakeholder :: pessoa ou grupo afetado pelo sistema ou que influencia seus requisitos.
+
+* Definição dos requisitos de usuário
+Linguagem natural, sem detalhes de implementação, compreensível por
+não especialistas (Sommerville, seção 4.3).
+
+** RU-01 Identificar alunos em risco de evasão                  :HIPOTESE:
+:PROPERTIES:
+:ID:         RU-01
+:TIPO:       usuario
+:PRIORIDADE: deve
+:STATUS:     proposto
+:FONTE:      cenário C-01
+:END:
+O sistema deve indicar à coordenação os alunos com risco de evasão, com base
+em frequência, desempenho e outros fatores definidos pela escola.
+
+** RU-02 Registrar e acompanhar intervenções                     :HIPOTESE:
+:PROPERTIES:
+:ID:         RU-02
+:TIPO:       usuario
+:PRIORIDADE: deve
+:STATUS:     proposto
+:FONTE:      cenário C-01
+:END:
+A equipe pedagógica deve poder registrar as ações realizadas com cada aluno
+em risco e acompanhar seus resultados.
+
+** RU-03 Consultar indicadores de evasão                         :HIPOTESE:
+:PROPERTIES:
+:ID:         RU-03
+:TIPO:       usuario
+:PRIORIDADE: deveria
+:STATUS:     proposto
+:FONTE:      cenário C-02
+:END:
+Gestores devem poder consultar indicadores agregados de risco e de evasão por
+escola, turma e período.
+
+** RU-04 Disponibilizar dados para pesquisa                      :HIPOTESE:
+:PROPERTIES:
+:ID:         RU-04
+:TIPO:       usuario
+:PRIORIDADE: deveria
+:STATUS:     proposto
+:FONTE:      GEPIS
+:END:
+Pesquisadores autorizados devem poder obter dados anonimizados para estudar
+os fatores da evasão.
+
+* Arquitetura do sistema
+Visão de alto nível da distribuição de funções entre módulos (preencher na
+iteração 2). Módulos candidatos: cadastro/importação, motor de risco,
+alertas, intervenções, relatórios, exportação para pesquisa, autenticação.
+
+* Especificação dos requisitos de sistema
+Versão detalhada dos requisitos de usuário. Use a forma padronizada
+recomendada por Sommerville: "O sistema deve..." para obrigatórios,
+"O sistema deveria..." para desejáveis; um requisito por item; com
+justificativa (/rationale/) e critério de aceitação.
+
+** Requisitos funcionais
+*** RF-01 Registrar frequência por turma                         :HIPOTESE:
+:PROPERTIES:
+:ID:         RF-01
+:TIPO:       funcional
+:PRIORIDADE: deve
+:STATUS:     proposto
+:ORIGEM:     RU-01
+:END:
+- *Descrição:* O sistema deve permitir que o professor registre a presença
+  dos alunos de uma turma em uma data.
+- *Justificativa:* frequência é o principal sinal precoce de evasão.
+- *Critério de aceitação:* o registro de uma turma de 40 alunos pode ser
+  concluído em até 2 minutos.
+
+*** RF-02 Importar dados do sistema acadêmico                    :HIPOTESE:
+:PROPERTIES:
+:ID:         RF-02
+:TIPO:       funcional
+:PRIORIDADE: deveria
+:STATUS:     proposto
+:ORIGEM:     RU-01
+:END:
+- *Descrição:* O sistema deve importar matrículas, frequência e notas a partir
+  de arquivo (CSV) exportado pelo sistema acadêmico da escola.
+- *Critério de aceitação:* um arquivo com erros é rejeitado com relatório das
+  linhas inválidas, sem gravar dados parciais.
+
+*** RF-03 Calcular indicador de risco                            :HIPOTESE:
+:PROPERTIES:
+:ID:         RF-03
+:TIPO:       funcional
+:PRIORIDADE: deve
+:STATUS:     proposto
+:ORIGEM:     RU-01
+:END:
+- *Descrição:* O sistema deve calcular, para cada aluno, um indicador de risco
+  a partir de critérios e pesos configuráveis pela coordenação.
+- *Justificativa:* cada escola tem contexto diferente.
+- *Critério de aceitação:* alterar um peso recalcula os indicadores e a lista
+  de risco reflete a mudança.
+
+*** RF-04 Emitir alertas de risco                                :HIPOTESE:
+:PROPERTIES:
+:ID:         RF-04
+:TIPO:       funcional
+:PRIORIDADE: deve
+:STATUS:     proposto
+:ORIGEM:     RU-01
+:END:
+- *Descrição:* O sistema deve notificar a coordenação quando um aluno
+  ultrapassar o limiar de risco.
+
+*** RF-05 Registrar intervenção                                  :HIPOTESE:
+:PROPERTIES:
+:ID:         RF-05
+:TIPO:       funcional
+:PRIORIDADE: deve
+:STATUS:     proposto
+:ORIGEM:     RU-02
+:END:
+- *Descrição:* O sistema deve permitir registrar intervenções (data, tipo,
+  responsável, descrição, resultado, próximo acompanhamento).
+
+*** RF-06 Gerar relatórios de indicadores                        :HIPOTESE:
+:PROPERTIES:
+:ID:         RF-06
+:TIPO:       funcional
+:PRIORIDADE: deveria
+:STATUS:     proposto
+:ORIGEM:     RU-03
+:END:
+- *Descrição:* O sistema deve gerar relatórios filtráveis por escola, turma e
+  período, exportáveis em PDF e CSV.
+
+*** RF-07 Exportar dados anonimizados                            :HIPOTESE:
+:PROPERTIES:
+:ID:         RF-07
+:TIPO:       funcional
+:PRIORIDADE: deveria
+:STATUS:     proposto
+:ORIGEM:     RU-04
+:END:
+- *Descrição:* O sistema deve exportar conjuntos de dados sem identificadores
+  pessoais diretos para usuários com perfil de pesquisador.
+
+** Requisitos não funcionais
+Classificação de Sommerville (fig. 4.3): requisitos de *produto*
+(usabilidade, eficiência, confiança, proteção), *organizacionais*
+(ambientais, operacionais, de desenvolvimento) e *externos*
+(regulatórios, éticos, legais). Devem ser quantificados sempre que possível
+(fig. 4.5: velocidade, tamanho, facilidade de uso, confiabilidade,
+robustez, portabilidade).
+
+*** RNF-01 Usabilidade (produto)                                 :HIPOTESE:
+:PROPERTIES:
+:ID:         RNF-01
+:TIPO:       nao-funcional/produto
+:PRIORIDADE: deve
+:STATUS:     proposto
+:END:
+Professores devem conseguir usar as funções de registro após no máximo
+30 minutos de treinamento. /Métrica:/ taxa de erros < 2 por sessão após treinamento.
+
+*** RNF-02 Desempenho (produto)                                  :HIPOTESE:
+:PROPERTIES:
+:ID:         RNF-02
+:TIPO:       nao-funcional/produto
+:PRIORIDADE: deveria
+:STATUS:     proposto
+:END:
+A lista de alunos em risco de uma escola deve ser exibida em até 3 segundos
+para 95% das requisições.
+
+*** RNF-03 Acesso móvel (produto)                                :HIPOTESE:
+:PROPERTIES:
+:ID:         RNF-03
+:TIPO:       nao-funcional/produto
+:PRIORIDADE: deveria
+:STATUS:     proposto
+:END:
+O registro de frequência deve funcionar em navegador de celular.
+
+*** RNF-04 Controle de acesso (produto/proteção)                 :HIPOTESE:
+:PROPERTIES:
+:ID:         RNF-04
+:TIPO:       nao-funcional/protecao
+:PRIORIDADE: deve
+:STATUS:     proposto
+:END:
+Cada usuário só deve acessar dados dos alunos das turmas/escolas vinculadas
+ao seu perfil; todo acesso a dados pessoais deve ser registrado em log.
+
+*** RNF-05 Conformidade com a LGPD (externo/legal)               :HIPOTESE:
+:PROPERTIES:
+:ID:         RNF-05
+:TIPO:       nao-funcional/externo
+:PRIORIDADE: deve
+:STATUS:     proposto
+:END:
+O tratamento de dados pessoais de crianças e adolescentes deve atender à
+Lei 13.709/2018 (LGPD, art. 14) e ao ECA.
+
+*** RNF-06 Ética em pesquisa (externo/ético)                     :HIPOTESE:
+:PROPERTIES:
+:ID:         RNF-06
+:TIPO:       nao-funcional/externo
+:PRIORIDADE: deve
+:STATUS:     proposto
+:END:
+O uso de dados para pesquisa deve seguir protocolo aprovado em Comitê de
+Ética em Pesquisa (Res. CNS 510/2016).
+
+*** RNF-07 Tecnologia (organizacional/desenvolvimento)           :HIPOTESE:
+:PROPERTIES:
+:ID:         RNF-07
+:TIPO:       nao-funcional/organizacional
+:PRIORIDADE: poderia
+:STATUS:     proposto
+:END:
+O sistema deve ser desenvolvido com software livre e implantável na
+infraestrutura disponível (a definir com a equipe de TI).
+
+** Requisitos de domínio
+*** RD-01 Frequência mínima legal                                :HIPOTESE:
+:PROPERTIES:
+:ID:         RD-01
+:TIPO:       dominio
+:PRIORIDADE: deve
+:STATUS:     proposto
+:FONTE:      LDB (Lei 9.394/1996), art. 24, VI
+:END:
+O cálculo de frequência deve considerar a exigência de 75% de frequência
+mínima do total de horas letivas.
+
+* Modelos do sistema
+Modelos a produzir na iteração 2 (Sommerville, cap. 5):
+- Modelo de contexto (sistema × sistema acadêmico, e-mail, usuários).
+- Diagrama de casos de uso por ator.
+- Diagrama de atividades do fluxo "aluno em risco → intervenção".
+- Modelo de dados (aluno, turma, frequência, nota, intervenção, usuário).
+
+#+begin_src plantuml :file casos-de-uso.png :exports results
+@startuml
+left to right direction
+actor Professor
+actor Coordenador
+actor Pesquisador
+actor Gestor
+rectangle "Sistema Evasão Escolar" {
+  Professor --> (Registrar frequência)
+  Coordenador --> (Consultar alunos em risco)
+  Coordenador --> (Registrar intervenção)
+  Coordenador --> (Configurar critérios de risco)
+  Gestor --> (Consultar indicadores)
+  Pesquisador --> (Exportar dados anonimizados)
+}
+@enduml
+#+end_src
+
+* Evolução do sistema
+Suposições fundamentais e mudanças previstas:
+- Integração direta (API) com o sistema acadêmico em vez de CSV.
+- Modelo preditivo (aprendizado de máquina) substituindo os pesos manuais.
+- Uso em múltiplas escolas/redes.
+
+* Apêndices
+- Legislação de referência (LDB, ECA, LGPD, Res. CNS 510/2016).
+- Definições do INEP para abandono/evasão.
+
+* Índice
+Gerado na exportação.

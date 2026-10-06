@@ -1,0 +1,60 @@
+#+TITLE: Validação de Requisitos
+#+LANGUAGE: pt_BR
+#+STARTUP: overview
+#+TODO: TODO EM-REVISAO | APROVADO REJEITADO
+
+* Por que validar
+Segundo Sommerville, corrigir um erro de requisito depois da entrega pode
+custar até 100 vezes mais do que corrigir um erro de implementação. A
+validação verifica se os requisitos definem o sistema que o cliente
+realmente quer.
+
+* Verificações (Sommerville, seção 4.6)
+Aplique a cada requisito:
+| Verificação        | Pergunta                                                         |
+|--------------------+------------------------------------------------------------------|
+| Validade           | O requisito atende a uma necessidade real de um stakeholder?     |
+| Consistência       | Ele contradiz outro requisito?                                   |
+| Completude         | Todas as funções e restrições necessárias estão presentes?       |
+| Realismo           | Pode ser implementado com a tecnologia, prazo e orçamento atuais? |
+| Verificabilidade   | É possível escrever um teste que mostre que ele foi atendido?    |
+
+* Técnicas
+- *Revisões de requisitos* — leitura sistemática com stakeholders.
+- *Prototipação* — modelo executável/telas para usuários experimentarem.
+- *Geração de casos de teste* — se é difícil escrever o teste, o requisito
+  provavelmente está mal definido.
+
+* Sessões de revisão
+** TODO Revisão 1 — requisitos de usuário — <data>
+:PROPERTIES:
+:PARTICIPANTES:
+:VERSAO_DOC: 0.1
+:END:
+| ID    | Válido | Consistente | Completo | Realista | Verificável | Observações |
+|-------+--------+-------------+----------+----------+-------------+-------------|
+| RU-01 |        |             |          |          |             |             |
+| RU-02 |        |             |          |          |             |             |
+| RU-03 |        |             |          |          |             |             |
+| RU-04 |        |             |          |          |             |             |
+
+* Protótipos
+- [ ] Tela de registro de frequência (RF-01)
+- [ ] Lista de alunos em risco (RF-03, RF-04)
+- [ ] Ficha de intervenção (RF-05)
+
+* Casos de teste de aceitação derivados
+** CT-01 (RF-01) Registrar frequência
+- *Dado* uma turma com 40 alunos
+- *Quando* o professor marca as presenças e salva
+- *Então* os 40 registros são gravados e o tempo total é ≤ 2 minutos.
+
+** CT-02 (RF-02) Importação com erros
+- *Dado* um CSV com uma linha inválida
+- *Quando* a importação é executada
+- *Então* nenhum dado é gravado e a linha inválida é informada.
+
+** CT-03 (RNF-04) Controle de acesso
+- *Dado* um professor da turma A
+- *Quando* tenta acessar dados de aluno da turma B
+- *Então* o acesso é negado e a tentativa é registrada em log.

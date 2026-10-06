@@ -1,0 +1,89 @@
+#+TITLE: Elicitação e Análise de Requisitos
+#+LANGUAGE: pt_BR
+#+STARTUP: overview
+#+TODO: TODO AGENDADO REALIZADO | ANALISADO
+
+* Processo de elicitação (Sommerville, fig. 4.13)
+1. *Descoberta* — interagir com stakeholders para descobrir requisitos.
+2. *Classificação e organização* — agrupar requisitos relacionados.
+3. *Priorização e negociação* — resolver conflitos e definir prioridades.
+4. *Especificação* — documentar e alimentar a próxima volta da espiral.
+
+Problemas típicos a observar (Sommerville):
+- stakeholders não sabem exatamente o que querem, ou pedem o impossível;
+- expressam requisitos em seus próprios termos (jargão pedagógico);
+- stakeholders diferentes têm requisitos conflitantes;
+- fatores políticos influenciam os requisitos;
+- o ambiente muda durante a análise (ex.: novas normas da Secretaria).
+
+* Stakeholders
+| Stakeholder                      | Interesse no sistema                                   | Técnica sugerida        |
+|----------------------------------+--------------------------------------------------------+-------------------------|
+| Direção / coordenação pedagógica | Visão geral do risco de evasão, tomada de decisão      | Entrevista aberta       |
+| Professores                      | Registrar frequência/desempenho com pouco esforço      | Entrevista + observação |
+| Secretaria escolar               | Dados de matrícula, transferência, cancelamento        | Entrevista fechada      |
+| Orientação educacional / social  | Acompanhar e registrar intervenções com alunos em risco | Cenários                |
+| Estudantes                       | Privacidade, apoio                                     | Grupo focal             |
+| Responsáveis / famílias          | Ser comunicados, privacidade                           | Questionário            |
+| Pesquisadores (GEPIS)            | Dados anonimizados para análise da evasão              | Entrevista aberta       |
+| Secretaria de Educação / gestão  | Indicadores agregados, conformidade legal              | Análise de documentos   |
+| Equipe de TI                     | Hospedagem, integração, manutenção                     | Entrevista fechada      |
+
+* Roteiro de entrevista
+Sommerville recomenda entrevistas com mente aberta e com um "trampolim"
+(uma pergunta ou proposta inicial) para iniciar a conversa.
+
+** Perguntas gerais
+1. Como hoje vocês percebem que um aluno está em risco de abandonar a escola?
+2. Que informações vocês consultam? Onde elas estão (papel, planilha, sistema)?
+3. Quem age quando um aluno é identificado em risco? O que é feito?
+4. O que tornaria esse trabalho mais fácil ou mais rápido?
+5. Quais informações são sensíveis e quem não deveria vê-las?
+6. Como saberiam que o sistema está funcionando bem?
+
+** Perguntas por stakeholder
+- Professor: com que frequência registra presença? Quanto tempo aceita gastar?
+- Coordenação: que relatórios precisa? Com que periodicidade?
+- Pesquisador: que variáveis são necessárias? Qual nível de anonimização?
+
+* Registro das sessões
+** TODO Entrevista — <stakeholder> — <data>
+:PROPERTIES:
+:PARTICIPANTES:
+:TECNICA:  entrevista aberta
+:END:
+*** Anotações
+*** Requisitos candidatos descobertos
+- (vincular ao ID em [[file:02-documento-de-requisitos.org]])
+
+* Cenários
+Sommerville descreve um cenário com: situação inicial, fluxo normal,
+o que pode dar errado, atividades concorrentes e estado final.
+
+** Cenário C-01: Identificação de aluno em risco :HIPOTESE:
+- *Situação inicial:* aluno acumula faltas consecutivas no bimestre.
+- *Fluxo normal:* o professor registra as faltas; o sistema calcula o
+  indicador de risco; a coordenação recebe um alerta e encaminha o caso à
+  orientação educacional, que registra contato com a família.
+- *O que pode dar errado:* faltas lançadas com atraso; contato da família
+  desatualizado; falso positivo (falta justificada).
+- *Atividades concorrentes:* outros professores lançando notas.
+- *Estado final:* caso registrado com intervenção e acompanhamento agendado.
+
+** Cenário C-02: Consulta de indicadores pela gestão :HIPOTESE:
+- *Situação inicial:* fim do bimestre.
+- *Fluxo normal:* gestor filtra por escola/turma/período e vê a taxa de
+  alunos em risco e de abandono efetivo.
+- *O que pode dar errado:* dados incompletos de alguma turma.
+- *Estado final:* relatório exportado.
+
+* Histórias de usuário (complemento ágil)
+- Como /professor/, quero registrar a frequência em poucos cliques para não
+  perder tempo de aula. :HIPOTESE:
+- Como /coordenador/, quero ver a lista de alunos em risco para agir cedo. :HIPOTESE:
+- Como /pesquisador/, quero exportar dados anonimizados para estudar a evasão. :HIPOTESE:
+
+* Conflitos e negociação
+| Conflito                                         | Stakeholders            | Decisão | Data |
+|--------------------------------------------------+-------------------------+---------+------|
+| Detalhe dos dados para pesquisa × privacidade    | Pesquisadores × famílias |         |      |
