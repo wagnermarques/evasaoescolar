@@ -39,9 +39,12 @@ Aplique a cada requisito:
 | RU-04 |        |             |          |          |             |             |
 
 * Protótipos
-- [ ] Tela de registro de frequência (RF-01)
-- [ ] Lista de alunos em risco (RF-03, RF-04)
-- [ ] Ficha de intervenção (RF-05)
+Protótipo navegável em =frontend/= (fase 1, só dados fictícios); ver
+[[file:../../frontend/README.md][frontend/README.md]]. Marcar cada item quando
+for validado com os stakeholders, não apenas construído.
+- [ ] Tela de registro de frequência (RF-01) — rota =#/frequencia= (mede o CT-01)
+- [ ] Lista de alunos em risco (RF-03, RF-04) — rotas =#/risco= e =#/criterios=
+- [ ] Ficha de intervenção (RF-05) — rotas =#/aluno/:id= e =#/aluno/:id/intervencao=
 
 * Casos de teste de aceitação derivados
 ** CT-01 (RF-01) Registrar frequência
