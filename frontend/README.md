@@ -65,5 +65,5 @@ src/
 ## Fora desta fase
 
 RF-02 (importação CSV), RF-06 (relatórios), RF-07 (exportação anonimizada),
-RNF-04 (perfis e log de acesso), backend Supabase e login obrigatório. O GA4
+RNF-04 (perfis e log de acesso), backend no fzlbpms (bundle Camel/Karaf) e login obrigatório. O GA4
 do App Shell fica desligado (`analytics: null`) até se decidir sobre usuários menores de idade.

@@ -7,7 +7,7 @@
  * src/data/seed.js). Antes de guardar dados reais é preciso resolver os
  * "Pontos a negociar decorrentes do RNF-08" (dados locais, backend
  * obrigatório, hospedagem) junto com RNF-04 e RNF-05. A interface abaixo é
- * a que a troca por um backend (Supabase) deve manter.
+ * a que a troca pelo backend (fzlbpms, bundle Camel/Karaf) deve manter.
  */
 import { gerarDadosDemonstracao, dataISO } from '../data/seed.js'
 import { CRITERIOS_PADRAO, avaliarAlunos } from './risco.js'

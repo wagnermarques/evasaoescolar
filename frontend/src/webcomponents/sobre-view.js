@@ -111,7 +111,7 @@ export class SobreView extends LitElement {
         <li>RF-02 — importação de CSV do sistema acadêmico.</li>
         <li>RF-06 — relatórios exportáveis (PDF/CSV); RF-07 — exportação anonimizada para pesquisa.</li>
         <li>RNF-04 — perfis e controle de acesso por turma/escola, com log de acesso.</li>
-        <li>Backend (Supabase com RLS) e autenticação obrigatória — hoje o login é o de demonstração do App Shell.</li>
+        <li>Backend (fzlbpms, bundle Camel no Karaf) e autenticação obrigatória — hoje o login é o de demonstração do App Shell.</li>
         <li>Alertas por e-mail ou notificação; hoje o alerta (RF-04) aparece no sino do cabeçalho.</li>
       </ul>
 

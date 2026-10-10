@@ -282,7 +282,8 @@ infraestrutura disponível (a definir com a equipe de TI).
   - build com Vite e distribuição como PWA instalável (vite-plugin-pwa/Workbox);
   - roteamento por /hash router/ (compatível com hospedagem estática);
   - estado local /offline-first/ via /storage-service/;
-  - backend opcional (Supabase: Postgres + Auth + RLS) para sincronização;
+  - backend: o [[https://github.com/wagnermarques/fzlbpms][fzlbpms]] (bundles Apache Camel rodando no Apache Karaf,
+    um por front-end de projeto);
   - configuração declarativa via =appshell.config.js= (=defineAppShellConfig=).
   As funcionalidades do sistema devem ser implementadas como componentes e
   rotas carregados dentro desse shell.
@@ -311,8 +312,8 @@ ser resolvidos junto com RNF-04 e RNF-05:
 - *Dados locais:* dados de alunos guardados em =localStorage= ficam em
   dispositivos possivelmente compartilhados na escola. Definir o que pode ser
   armazenado localmente, e se o armazenamento deve ser cifrado ou limpo ao sair.
-- *Backend obrigatório:* aqui o backend (Supabase com RLS) e a autenticação
-  provavelmente serão obrigatórios, e não opcionais como no App Shell.
+- *Backend obrigatório:* aqui o backend (fzlbpms, bundle Camel/Karaf deste
+  projeto) e a autenticação provavelmente serão obrigatórios, e não opcionais como no App Shell.
 - *Hospedagem:* GitHub Pages serve o front-end; definir onde os dados ficam
   hospedados para atender à LGPD.
 - *Analytics:* o App Shell tem suporte a GA4. Avaliar se o uso é permitido com
